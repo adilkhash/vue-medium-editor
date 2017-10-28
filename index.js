@@ -15,7 +15,7 @@ export default {
 	element: [String]
   },
   render (h) {
-    return h(this.customTag, { ref: element })
+    return h(this.customTag, { ref: this.element })
   },
 
   mounted (evt) {
@@ -31,9 +31,9 @@ export default {
       this.api.destroy()
     },
     createAndSubscribe () {
-      this.$refs[element].innerHTML = this.text
+      this.$refs[this.element].innerHTML = this.text
 
-      this.api = new MediumEditor(this.$refs[element], this.options)
+      this.api = new MediumEditor(this.$refs[this.element], this.options)
 
       // bind edit operations to model
       // we need to store the handler in order to later on detach it again
@@ -45,8 +45,8 @@ export default {
     text (newText) {
       // innerHTML MUST not be performed if the text did not actually change.
       // otherwise, the caret position will be reset.
-      if (newText !== this.$refs[element].innerHTML) {
-        this.$refs[element].innerHTML = this.text
+      if (newText !== this.$refs[this.element].innerHTML) {
+        this.$refs[this.element].innerHTML = this.text
       }
     },
     /**
